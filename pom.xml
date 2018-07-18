@@ -3,19 +3,42 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
-    <groupId>com.xujiahong</groupId>
+    <groupId>com.parsec</groupId>
     <artifactId>novel</artifactId>
     <version>0.0.1-SNAPSHOT</version>
     <packaging>jar</packaging>
 
-    <name>novel</name>
-    <description>Demo project for Spring Boot</description>
+    <description>小说项目</description>
+
+    <profiles>
+        <!-- 我的测试环境 -->
+        <profile>
+            <id>dev</id>
+            <activation>
+                <activeByDefault>true</activeByDefault><!-- 默认激活开发环境 -->
+            </activation>
+            <properties>
+                <host>root@localhost</host>
+                <serverPath>/mnt/springboot/yourServerPath</serverPath>
+                <profile>dev</profile> <!--使用哪一个properties文件-->
+            </properties>
+        </profile>
+        <!-- 正式环境 -->
+        <profile>
+            <id>product</id>
+            <properties>
+                <host>root@localhost</host>
+                <serverPath>/mnt/springboot/yourServerPath</serverPath>
+                <profile>product</profile>
+            </properties>
+        </profile>
+    </profiles>
+
 
     <parent>
-        <groupId>org.springframework.boot</groupId>
-        <artifactId>spring-boot-starter-parent</artifactId>
-        <version>2.0.3.RELEASE</version>
-        <relativePath/> <!-- lookup parent from repository -->
+        <groupId>com.parsec</groupId>
+        <artifactId>universal-parent</artifactId>
+        <version>1.0.2</version>
     </parent>
 
     <properties>
@@ -26,29 +49,23 @@
 
     <dependencies>
         <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-web</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-test</artifactId>
-            <scope>test</scope>
-        </dependency>
-
-        <dependency>
             <groupId>com.parsec</groupId>
             <artifactId>universal-core</artifactId>
             <version>1.1.18</version>
         </dependency>
+
+        <!-- Apache poi begin -->
         <dependency>
-            <groupId>org.projectlombok</groupId>
-            <artifactId>lombok</artifactId>
-            <optional>true</optional>
+            <groupId>org.apache.poi</groupId>
+            <artifactId>poi</artifactId>
+            <version>3.17</version>
         </dependency>
+        <dependency>
+            <groupId>org.apache.poi</groupId>
+            <artifactId>poi-ooxml</artifactId>
+            <version>3.17</version>
+        </dependency>
+        <!-- Apache poi end -->
 
     </dependencies>
 
@@ -58,8 +75,50 @@
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
             </plugin>
+
+            <plugin>
+                <groupId>com.parsec</groupId>
+                <artifactId>parsec-plugins</artifactId>
+                <version>1.2.1</version>
+                <configuration>
+                    <!--是否允许重写已经存在的代码,默认false-->
+                    <overwrite>false</overwrite>
+                    <!--代码生成需要的配置文件，默认src/main/resources/generatorConfig.xml-->
+                    <configurationFile>src/main/resources/generatorConfig.xml</configurationFile>
+                    <!--要部署的服务器地址,deploy和ops-helper插件使用必填-->
+                    <host>${host}</host>
+                    <!--工作目录,deploy和ops-helper插件使用必填-->
+                    <serverPath>${serverPath}</serverPath>
+                </configuration>
+            </plugin>
         </plugins>
     </build>
 
+    <repositories>
+        <repository>
+            <id>nexus</id>
+            <name>Nexus Repository</name>
+            <url>http://office.parsec.com.cn:8082/repository/maven-releases/</url>
+            <releases>
+                <enabled>true</enabled>
+            </releases>
+            <snapshots>
+                <enabled>true</enabled>
+            </snapshots>
+        </repository>
+    </repositories>
 
+    <pluginRepositories>
+        <pluginRepository>
+            <id>nexus</id>
+            <name>Nexus Repository</name>
+            <url>http://office.parsec.com.cn:8082/repository/maven-releases/</url>
+            <releases>
+                <enabled>true</enabled>
+            </releases>
+            <snapshots>
+                <enabled>true</enabled>
+            </snapshots>
+        </pluginRepository>
+    </pluginRepositories>
 </project>

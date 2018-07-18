@@ -1,4 +1,4 @@
-package com.xujiahong.novel;
+package com.parsec.novel;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
