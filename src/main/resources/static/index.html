@@ -55,19 +55,79 @@
         <!--中部内容-->
         <div class="dashboard-wrapper">
 
-            <div class="left-sidebar">
+            <div class="left-sidebar" style="margin-right:0">
 
                 <div class="row-fluid">
                     <div class="span12">
                         <div class="widget">
                             <div class="widget-header">
                                 <div class="title">
-                                    <a id="dynamicTable">英雄资料</a>
+                                    <a id="dynamicTable" href="javascript:void(0)" onclick="$('#heroModal').modal('show')">英雄资料</a>
                                 </div>
                                 <span class="tools">
-                      <a class="fs1" aria-hidden="true" data-icon="&#xe090;"></a>
-                    </span>
+                                  <a class="fs1" aria-hidden="true" data-icon="&#xe090;"></a>
+                                </span>
                             </div>
+
+
+                            <!-- Modal -->
+                            <div id="heroModal" class="modal hide fade" tabindex="-1" role="dialog"
+                                 aria-labelledby="myModalLabel" aria-hidden="true"
+                                 style="left:20%;width:60%;margin-left:0;">
+                                <div class="modal-header">
+                                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+                                        ×
+                                    </button>
+                                    <h4 id="myModalLabel">
+                                        编辑英雄资料
+                                    </h4>
+                                </div>
+                                <div class="modal-body">
+                                    <form class="form-horizontal no-margin" id="heroForm">
+                                        <div class="control-group">
+                                            <span class="span1"></span>
+                                            <input type="hidden" name="id" id="id"/>
+                                            <input type="text" name="name" id="name" class="span5" placeholder="姓名"/>
+                                            <input type="text" name="nickName" id="nickName" class="span5"
+                                                   placeholder="昵称"/>
+                                        </div>
+                                        <div class="control-group">
+                                            <span class="span1"></span>
+                                            <input type="text" name="home" id="home" class="span5" placeholder="国家"/>
+                                            <input type="text" name="org" id="org" class="span5" placeholder="派系"/>
+                                        </div>
+                                        <div class="control-group">
+                                            <span class="span1"></span>
+                                            <input type="text" name="magicAttribute" id="magicAttribute"
+                                                   class="span5" placeholder="属性"/>
+                                            <input type="text" name="weapon" id="weapon" class="span5"
+                                                   placeholder="武器"/>
+                                        </div>
+                                        <div class="control-group">
+                                            <span class="span1"></span>
+                                            <input type="text" name="appearScene" id="appearScene"
+                                                   class="span5" placeholder="登场"/>
+                                            <input type="text" name="levelDesc" id="levelDesc"
+                                                   class="span5" placeholder="等级"/>
+                                        </div>
+                                        <div class="control-group">
+                                            <span class="span1"></span>
+                                            <textarea rows="5" id="story" name="story"
+                                                      class="input-block-level span10"
+                                                      placeholder="设定"></textarea>
+                                        </div>
+
+                                    </form>
+
+                                </div>
+                                <div class="modal-footer">
+                                    <button class="btn btn-primary" onclick="saveHero()">
+                                        保存
+                                    </button>
+                                </div>
+                            </div>
+                            <!-- Modal -->
+
                             <div class="widget-body">
                                 <div id="dt_example" class="example_alt_pagination">
                                     <table class="table table-condensed table-striped table-hover table-bordered pull-left"
@@ -75,23 +135,26 @@
 
                                         <thead>
                                         <tr>
+
+                                            <th class="hidden-phone" style="width:80px">操作</th>
+                                            
                                             <th>ID</th>
                                             <th>姓名</th>
                                             <th>昵称</th>
                                             <th>国家</th>
                                             <th>派系</th>
-                                            <th class="hidden-phone">魔法属性</th>
-                                            <th class="hidden-phone">武器装备</th>
-                                            <th class="hidden-phone">等级描述</th>
-                                            <th class="hidden-phone">小说设定</th>
+                                            <th class="hidden-phone">属性</th>
+                                            <th class="hidden-phone">武器</th>
+                                            <th class="hidden-phone">等级</th>
+                                            <th class="hidden-phone">设定</th>
                                         </tr>
                                         </thead>
                                         <tbody id="hero-tbody">
 
-
                                         </tbody>
                                     </table>
-                                    <div class="clearfix">
+                                    <div class="clearfix" style="text-align:center;" id="loading-div">
+                                        <img src="img/loading-blue.gif" alt="loading-blue">
                                     </div>
                                 </div>
                             </div>
@@ -102,7 +165,7 @@
 
             </div>
 
-            <div class="right-sidebar"></div>
+            <!--<div class="right-sidebar"></div>-->
 
         </div>
 
@@ -113,12 +176,14 @@
 
 <script src="js/jquery.min.js"></script>
 <script src="js/bootstrap.js"></script>
-<script src="js/jquery.scrollUp.js"></script>
 <script src="js/jquery.dataTables.js"></script>
 
 <script src="myjs/base.js"></script>
 <script src="myjs/index.js"></script>
 
+<script type="text/javascript">
 
+
+</script>
 </body>
 </html>

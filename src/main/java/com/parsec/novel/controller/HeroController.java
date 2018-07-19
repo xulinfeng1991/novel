@@ -5,7 +5,6 @@ import com.parsec.novel.utils.ExcelBaseUtil;
 import com.parsec.novel.utils.ExcelReadUtil;
 import com.parsec.universal.dao.CommonDaoWrap;
 import com.parsec.universal.utils.Result;
-import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -13,11 +12,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.Date;
 import java.util.List;
 
 /**
@@ -38,6 +33,25 @@ public class HeroController {
         query.setPageSize(999);
         List<Hero> list = daoWrap.selectList(query,null,true);
         return Result.returnSuccess(list, "操作成功");
+    }
+
+    @GetMapping("/hero/detail")
+    public Result detail(Integer id){
+        Hero hero = daoWrap.select(id,Hero.class);
+        return Result.returnSuccess(hero, "操作成功");
+    }
+
+    @PostMapping("/hero/save")
+    public Result save(Hero hero){
+        if(hero==null || StringUtils.isEmpty(hero.getNickName())){
+            return Result.returnFail("昵称不能为空");
+        }
+        if(hero.getId()==null){
+            daoWrap.insert(hero);
+        }else{
+            daoWrap.update(hero);
+        }
+        return Result.returnSuccess(hero, "操作成功");
     }
 
     @PostMapping("/hero/excel")
