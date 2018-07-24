@@ -1,11 +1,10 @@
 
 $(document).ready(function () {
-
-    //初始化页面
-    initPage();
+    $(".top-nav").load("top-nav.html",function() {
+        $("#top-nav-hero").attr("class", "selected");
+    });
     //加载表格数据
     loadTableData();
-
 });
 
 function editHero(id){

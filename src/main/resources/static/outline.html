@@ -62,8 +62,10 @@
                         <div class="widget">
                             <div class="widget-header">
                                 <div class="title">
-                                    <a id="dynamicTable" href="javascript:void(0)" onclick="$('#heroModal').modal('show')">英雄资料</a>
+                                    <a id="dynamicTable" href="javascript:void(0)"
+                                       onclick="$('#outlineModal').modal('show')">大纲管理</a>
                                 </div>
+                                <select id="outline-select" style="width:130;margin-left:10px;"></select>
                                 <span class="tools">
                                   <a class="fs1" aria-hidden="true" data-icon="&#xe090;"></a>
                                 </span>
@@ -71,7 +73,7 @@
 
 
                             <!-- Modal -->
-                            <div id="heroModal" class="modal hide fade" tabindex="-1" role="dialog"
+                            <div id="outlineModal" class="modal hide fade" tabindex="-1" role="dialog"
                                  aria-labelledby="myModalLabel" aria-hidden="true"
                                  style="left:20%;width:60%;margin-left:0;">
                                 <div class="modal-header">
@@ -79,49 +81,45 @@
                                         ×
                                     </button>
                                     <h4 id="myModalLabel">
-                                        编辑英雄资料
+                                        编辑
                                     </h4>
                                 </div>
                                 <div class="modal-body">
-                                    <form class="form-horizontal no-margin" id="heroForm">
+                                    <form class="form-horizontal no-margin" id="outlineForm">
+                                        <input type="hidden" name="id" id="id"/>
                                         <div class="control-group">
-                                            <span class="span1"></span>
-                                            <input type="hidden" name="id" id="id"/>
-                                            <input type="text" name="name" id="name" class="span5" placeholder="姓名"/>
-                                            <input type="text" name="nickName" id="nickName" class="span5"
-                                                   placeholder="昵称"/>
+                                            <select id="parentId"></select>
                                         </div>
                                         <div class="control-group">
-                                            <span class="span1"></span>
-                                            <input type="text" name="home" id="home" class="span5" placeholder="国家"/>
-                                            <input type="text" name="org" id="org" class="span5" placeholder="派系"/>
+                                            <input type="text" name="title" id="title" class="span12" placeholder="标题（分卷、章节）"/>
                                         </div>
                                         <div class="control-group">
-                                            <span class="span1"></span>
-                                            <input type="text" name="magicAttribute" id="magicAttribute"
-                                                   class="span5" placeholder="属性"/>
-                                            <input type="text" name="weapon" id="weapon" class="span5"
-                                                   placeholder="武器"/>
+                                            <input type="text" name="plot" id="plot" class="span12" placeholder="情节简述"/>
                                         </div>
                                         <div class="control-group">
-                                            <span class="span1"></span>
-                                            <input type="text" name="appearScene" id="appearScene"
-                                                   class="span5" placeholder="登场"/>
-                                            <input type="text" name="levelDesc" id="levelDesc"
-                                                   class="span5" placeholder="等级"/>
+                                            <input type="text" name="bossLevel" id="bossLevel" class="span12" 
+                                                   placeholder="BOSS等级设定"/>
                                         </div>
                                         <div class="control-group">
-                                            <span class="span1"></span>
+                                            <input type="text" name="mainPeople" id="mainPeople" class="span12" 
+                                                   placeholder="主要人物"/>
+                                        </div>
+                                        <div class="control-group">
                                             <textarea rows="5" id="story" name="story"
-                                                      class="input-block-level span10"
-                                                      placeholder="设定"></textarea>
+                                                      class="input-block-level span12"
+                                                      placeholder="故事详情"></textarea>
+                                        </div>
+                                        <div class="control-group">
+                                            <textarea rows="5" id="material" name="material"
+                                                      class="input-block-level span12"
+                                                      placeholder="写作材料"></textarea>
                                         </div>
 
                                     </form>
 
                                 </div>
                                 <div class="modal-footer">
-                                    <button class="btn btn-primary" onclick="saveHero()">
+                                    <button class="btn btn-primary" onclick="saveOutline()">
                                         保存
                                     </button>
                                 </div>
@@ -131,7 +129,7 @@
                             <div class="widget-body">
                                 <div id="dt_example" class="example_alt_pagination">
                                     <table class="table table-condensed table-striped table-hover table-bordered pull-left"
-                                           id="hero-data-table">
+                                           id="outline-data-table">
 
                                         <thead>
                                         <tr>
@@ -139,17 +137,15 @@
                                             <th class="hidden-phone" style="width:80px">操作</th>
                                             
                                             <th>ID</th>
-                                            <th>姓名</th>
-                                            <th>昵称</th>
-                                            <th>国家</th>
-                                            <th>派系</th>
-                                            <th class="hidden-phone">属性</th>
-                                            <th class="hidden-phone">武器</th>
-                                            <th class="hidden-phone">等级</th>
-                                            <th class="hidden-phone">设定</th>
+                                            <th>标题</th>
+                                            <th>情节</th>
+                                            <th>BOSS</th>
+                                            <th>人物</th>
+                                            <th class="hidden-phone">故事详情</th>
+                                            <th class="hidden-phone">写作材料</th>
                                         </tr>
                                         </thead>
-                                        <tbody id="hero-tbody">
+                                        <tbody id="outline-tbody">
 
                                         </tbody>
                                     </table>
@@ -178,10 +174,10 @@
 
 <script src="js/jquery.min.js"></script>
 <script src="js/bootstrap.js"></script>
-<script src="js/jquery.dataTables.js"></script>
+<!--<script src="js/jquery.dataTables.js"></script>-->
 
 <script src="myjs/base.js"></script>
-<script src="myjs/index.js"></script>
+<script src="myjs/outline.js"></script>
 
 <script type="text/javascript">
 
